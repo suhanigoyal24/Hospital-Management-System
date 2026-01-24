@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up - CityCare</title>
+</head>
+<body>
+    <h2>Sign Up</h2>
+
+    <p>
+        New user? First register yourself and then login with the credentials.
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <p>
+        Already a user? <a href="{% url 'login' %}">Login here</a>
+    </p>
+</body>
+</html>

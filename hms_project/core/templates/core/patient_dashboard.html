@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Dashboard - CityCare</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome to CityCare Hospital Portal</h1>
+        <p>Hello {{ request.user.username }}, welcome to your dashboard.</p>
+
+        <!-- Logout button -->
+        <form method="post" action="{% url 'logout' %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    </header>
+    {% if messages %}
+    <div>
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+
+
+    <h2>Our Doctors</h2>
+
+    {% for doctor in doctors %}
+        <div class="doctor">
+            <p><strong>Dr. {{ doctor.user.username }} - {{ doctor.specialization }}</strong></p>
+            <p>Available Slots:</p>
+            <ul>
+                {% if doctor.available_slots %}
+                    {% for slot in doctor.available_slots %}
+                        <li>
+                            {{ slot.date }} | {{ slot.start_time }} - {{ slot.end_time }}
+                            <form method="post" action="{% url 'book_slot' slot.id %}" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit">Book</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <li>No slots available</li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endfor %}
+
+    <footer>
+    © CityCare Hospital
+</footer>
+</body>
+</html>
+
+
