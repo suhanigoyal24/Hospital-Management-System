@@ -1,23 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Sign Up - CityCare</title>
+    <meta charset="UTF-8">
+    <title>Register - CityCare Hospital</title>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
 </head>
 <body>
-    <h2>Sign Up</h2>
 
-    <p>
-        New user? First register yourself and then login with the credentials.
-    </p>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top custom-navbar">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'index' %}">CityCare Hospital</a>
+    </div>
+</nav>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign Up</button>
-    </form>
+<div class="register-wrapper d-flex align-items-center justify-content-center">
+    <div class="register-card">
+        <h3 class="text-center mb-4">Create Account</h3>
 
-    <p>
-        Already a user? <a href="{% url 'login' %}">Login here</a>
-    </p>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit" class="btn btn-success w-100">
+                Register
+            </button>
+        </form>
+
+        <div class="text-center mt-3">
+            Already have an account?
+            <a href="{% url 'login' %}">Login</a>
+        </div>
+    </div>
+</div>
+
+<footer class="footer text-center py-3">
+    &copy; {{ now|date:"Y" }} CityCare Hospital. All rights reserved.
+</footer>
+
 </body>
 </html>
